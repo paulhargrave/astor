@@ -21,7 +21,7 @@ public class OperatorSwapCrossover implements CrossoverOperator {
             log.debug("CO|Not Enough variants to apply Crossover");
             return;
         }
-ß
+
         // We randomly choose the two variants to crossover
         ProgramVariant v1 = variants.get(RandomManager.nextInt(numberVariants));
         ProgramVariant v2 = variants.get(RandomManager.nextInt(numberVariants));
