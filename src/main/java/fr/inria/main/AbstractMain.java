@@ -316,7 +316,7 @@ public abstract class AbstractMain {
 	// several reasons, and she can't see a reason that the examples *wouldn't*
 	// work for the other tools.
 	private boolean isExample(CommandLine cmd) {
-		String[] examples = { "bug280", "bug288", "bug340", "bug428" };
+		String[] examples = { "bug280", "bug288", "bug340", "bug428", "bug309" };
 		for (String example : examples) {
 			if (cmd.hasOption(example)) {
 				return true;

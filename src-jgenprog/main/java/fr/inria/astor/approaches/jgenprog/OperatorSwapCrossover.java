@@ -4,6 +4,7 @@ import fr.inria.astor.core.entities.OperatorInstance;
 import fr.inria.astor.core.entities.ProgramVariant;
 import fr.inria.astor.core.setup.RandomManager;
 import fr.inria.astor.core.solutionsearch.AstorCoreEngine;
+import fr.inria.astor.core.solutionsearch.population.FitnessFunction;
 import org.apache.log4j.Logger;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class OperatorSwapCrossover implements CrossoverOperator {
     private static Logger log = Logger.getLogger(AstorCoreEngine.class.getSimpleName());
 
     @Override
-    public void applyCrossover(List<ProgramVariant> variants, int generation) {
+    public void applyCrossover(List<ProgramVariant> variants, int generation, FitnessFunction fitnessFunction) {
 
 
         int numberVariants = variants.size();
@@ -36,11 +37,15 @@ public class OperatorSwapCrossover implements CrossoverOperator {
             return;
         }
         // we randomly select the generations to apply
-        int rgen1index = RandomManager.nextInt(v1.getOperations().keySet().size()) + 1;
-        int rgen2index = RandomManager.nextInt(v2.getOperations().keySet().size()) + 1;
+        //removed +1 since throws exception where number operations is 1
+        int rgen1index = RandomManager.nextInt(v1.getOperations().keySet().size());
+        int rgen2index = RandomManager.nextInt(v2.getOperations().keySet().size());
 
         List<OperatorInstance> ops1 = v1.getOperations((int) v1.getOperations().keySet().toArray()[rgen1index]);
         List<OperatorInstance> ops2 = v2.getOperations((int) v2.getOperations().keySet().toArray()[rgen2index]);
+
+
+
 
         OperatorInstance opinst1 = ops1.remove((int) RandomManager.nextInt(ops1.size()));
         OperatorInstance opinst2 = ops2.remove((int) RandomManager.nextInt(ops2.size()));

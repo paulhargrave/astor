@@ -4,13 +4,11 @@ import java.util.List;
 
 import com.martiansoftware.jsap.JSAPException;
 
-import fr.inria.astor.core.entities.OperatorInstance;
 import fr.inria.astor.core.entities.ProgramVariant;
 import fr.inria.astor.core.ingredientbased.IngredientBasedEvolutionaryRepairApproachImpl;
 import fr.inria.astor.core.manipulation.MutationSupporter;
 import fr.inria.astor.core.setup.ConfigurationProperties;
 import fr.inria.astor.core.setup.ProjectRepairFacade;
-import fr.inria.astor.core.setup.RandomManager;
 import fr.inria.main.evolution.ExtensionPoints;
 
 /**
@@ -38,7 +36,7 @@ public class JGenProg extends IngredientBasedEvolutionaryRepairApproachImpl {
 		super.prepareNextGeneration(temporalInstances, generation);
 
 		if (ConfigurationProperties.getPropertyBool("applyCrossover")) {
-			crossoverOperator.applyCrossover(temporalInstances, generation);
+			crossoverOperator.applyCrossover(temporalInstances, generation, fitnessFunction);
 		}
 	}
 
