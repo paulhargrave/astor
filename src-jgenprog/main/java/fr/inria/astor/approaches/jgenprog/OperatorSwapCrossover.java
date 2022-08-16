@@ -8,6 +8,8 @@ import fr.inria.astor.core.solutionsearch.population.FitnessFunction;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OperatorSwapCrossover implements CrossoverOperator {
 
@@ -36,13 +38,17 @@ public class OperatorSwapCrossover implements CrossoverOperator {
             log.debug("CO|Not Enough ops to apply Crossover");
             return;
         }
+        Map<Integer, List<OperatorInstance>> v1FilteredOperations = filterOutEmptyOperations(v1.getOperations());
+        Map<Integer, List<OperatorInstance>> v2FilteredOperations = filterOutEmptyOperations(v2.getOperations());
+
+
         // we randomly select the generations to apply
         //removed +1 since throws exception where number operations is 1
-        int rgen1index = RandomManager.nextInt(v1.getOperations().keySet().size());
-        int rgen2index = RandomManager.nextInt(v2.getOperations().keySet().size());
+        int rgen1index = RandomManager.nextInt(v1FilteredOperations.keySet().size());
+        int rgen2index = RandomManager.nextInt(v2FilteredOperations.keySet().size());
 
-        List<OperatorInstance> ops1 = v1.getOperations((int) v1.getOperations().keySet().toArray()[rgen1index]);
-        List<OperatorInstance> ops2 = v2.getOperations((int) v2.getOperations().keySet().toArray()[rgen2index]);
+        List<OperatorInstance> ops1 = v1.getOperations((int) v1FilteredOperations.keySet().toArray()[rgen1index]);
+        List<OperatorInstance> ops2 = v2.getOperations((int) v2FilteredOperations.keySet().toArray()[rgen2index]);
 
 
 
@@ -61,5 +67,11 @@ public class OperatorSwapCrossover implements CrossoverOperator {
         // In the second variant we put the operator taken from the 1 one.
         v2.putModificationInstance(generation, opinst1);
         //
+    }
+
+    private Map<Integer, List<OperatorInstance>> filterOutEmptyOperations(Map<Integer, List<OperatorInstance>> v1Operations) {
+        return v1Operations.entrySet().stream()
+                .filter(e -> e.getValue().size() > 0)
+                .collect(Collectors.toUnmodifiableMap(e -> e.getKey(), e -> e.getValue()));
     }
 }

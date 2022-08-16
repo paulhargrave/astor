@@ -307,13 +307,20 @@ public class ProjectConfiguration {
 			return null;
 		}
 
+		int currentVersion;
 		String[] versioncomponents = jvmversion.split("\\.");
-		if (versioncomponents.length < 3) {
+		if (versioncomponents.length == 1) {
+			currentVersion = Integer.valueOf(versioncomponents[0]);
+		}
+		else if (versioncomponents.length < 3) {
 			logger.error("The property jvmversion has a format we cannot recognize: " + versioncomponents);
 			return null;
 		}
-		String sec = versioncomponents[1];
-		int currentVersion = Integer.valueOf(sec);
+		else {
+			String sec = versioncomponents[1];
+			currentVersion = Integer.valueOf(sec);
+		}
+
 
 		return currentVersion;
 	}

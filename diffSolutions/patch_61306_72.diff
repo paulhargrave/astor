@@ -1,0 +1,12 @@
+--- /Users/paul/code/astor/examples/Math-issue-309/src/main/java/org/apache/commons/math/random/RandomDataImpl.java
++++ /Users/paul/code/astor/examples/Math-issue-309/src/main/java/org/apache/commons/math/random/RandomDataImpl.java
+@@ -472 +472 @@
+-		double unif = generator.nextDouble();
++		double unif = generator.nextDouble(); 		if (mean <= 0) { 			throw org.apache.commons.math.MathRuntimeException.createIllegalArgumentException("the Poisson mean must be positive ({0})", mean);}
+
+--- /Users/paul/code/astor/examples/Math-issue-309/src/main/java/org/apache/commons/math/random/RandomDataImpl.java
++++ /Users/paul/code/astor/examples/Math-issue-309/src/main/java/org/apache/commons/math/random/RandomDataImpl.java
+@@ -472 +472 @@
+-		double unif = generator.nextDouble();
++		double unif = generator.nextDouble(); 		if (mean <= 0) { 			throw org.apache.commons.math.MathRuntimeException.createIllegalArgumentException("the Poisson mean must be positive ({0})", mean);}
+

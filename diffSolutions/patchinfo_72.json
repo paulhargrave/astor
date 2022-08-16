@@ -1,0 +1,40 @@
+{
+  "VARIANT_ID": "72",
+  "VALIDATION": "|true|0|2100|[]|",
+  "patchhunks": [
+    {
+      "LOCATION": "org.apache.commons.math.random.RandomDataImpl",
+      "PATH": "\\/Users\\/paul\\/code\\/astor\\/examples\\/Math-issue-309\\/src\\/main\\/java\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java",
+      "INGREDIENT_SCOPE": "LOCAL",
+      "SUSPICIOUNESS": "0.756",
+      "INGREDIENT_PARENT": "\\/\\/ bug id 309\\nif (mean \u003c 0.0) {\\n\\t\\/\\/ FIX\\n\\t\\/\\/ if (mean \u003c\u003d 0.0) {\\n\\tthrow org.apache.commons.math.MathRuntimeException.createIllegalArgumentException(\\n\\t\\\"mean must be positive ({0})\\\", mean);\\n}",
+      "PATCH_HUNK_TYPE": "CtIfImpl|CtBlockImpl",
+      "ORIGINAL_CODE": "double unif \u003d generator.nextDouble()",
+      "BUGGY_CODE_TYPE": "CtLocalVariableImpl|CtBlockImpl",
+      "OPERATOR": "InsertAfterOp",
+      "MODIFIED_FILE_PATH": "\\/Users\\/paul\\/code\\/astor\\/.\\/output_astor\\/AstorMain-Math-issue-309\\/\\/src\\/\\/variant-72\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java",
+      "LINE": "472",
+      "MP_RANKING": "3",
+      "PATCH_HUNK_CODE": "\\/\\/ bug id 309\\nif (mean \u003c 0.0) {\\n\\t\\/\\/ FIX\\n\\t\\/\\/ if (mean \u003c\u003d 0.0) {\\n\\tthrow org.apache.commons.math.MathRuntimeException.createIllegalArgumentException(\\n\\t\\\"mean must be positive ({0})\\\", mean);\\n}"
+    },
+    {
+      "LOCATION": "org.apache.commons.math.random.RandomDataImpl",
+      "PATH": "\\/Users\\/paul\\/code\\/astor\\/examples\\/Math-issue-309\\/src\\/main\\/java\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java",
+      "INGREDIENT_SCOPE": "LOCAL",
+      "SUSPICIOUNESS": "0.756",
+      "INGREDIENT_PARENT": "if (mean \u003c\u003d 0) {\\n\\tthrow org.apache.commons.math.MathRuntimeException.createIllegalArgumentException(\\n\\t\\\"the Poisson mean must be positive ({0})\\\", mean);\\n}",
+      "PATCH_HUNK_TYPE": "CtIfImpl|CtBlockImpl",
+      "ORIGINAL_CODE": "\\/\\/ bug id 309\\nif (mean \u003c 0.0) {\\n\\t\\/\\/ FIX\\n\\t\\/\\/ if (mean \u003c\u003d 0.0) {\\n\\tthrow org.apache.commons.math.MathRuntimeException.createIllegalArgumentException(\\n\\t\\\"mean must be positive ({0})\\\", mean);\\n}",
+      "BUGGY_CODE_TYPE": "CtIfImpl|CtBlockImpl",
+      "OPERATOR": "ReplaceOp",
+      "MODIFIED_FILE_PATH": "\\/Users\\/paul\\/code\\/astor\\/.\\/output_astor\\/AstorMain-Math-issue-309\\/\\/src\\/\\/variant-72\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java",
+      "LINE": "472",
+      "MP_RANKING": "0",
+      "PATCH_HUNK_CODE": "if (mean \u003c\u003d 0) {\\n\\tthrow org.apache.commons.math.MathRuntimeException.createIllegalArgumentException(\\n\\t\\\"the Poisson mean must be positive ({0})\\\", mean);\\n}"
+    }
+  ],
+  "TIME": "61",
+  "GENERATION": "6",
+  "FOLDER_SOLUTION_CODE": "\\/Users\\/paul\\/code\\/astor\\/.\\/output_astor\\/AstorMain-Math-issue-309\\/\\/src\\/\\/variant-72",
+  "PATCH_DIFF_ORIG": "--- \\/Users\\/paul\\/code\\/astor\\/examples\\/Math-issue-309\\/src\\/main\\/java\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java\\n+++ \\/Users\\/paul\\/code\\/astor\\/examples\\/Math-issue-309\\/src\\/main\\/java\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java\\n@@ -472 +472 @@\\n-\\t\\tdouble unif \u003d generator.nextDouble();\\n+\\t\\tdouble unif \u003d generator.nextDouble(); \\t\\tif (mean \u003c\u003d 0) { \\t\\t\\tthrow org.apache.commons.math.MathRuntimeException.createIllegalArgumentException(\\\"the Poisson mean must be positive ({0})\\\", mean);}\\n\\n--- \\/Users\\/paul\\/code\\/astor\\/examples\\/Math-issue-309\\/src\\/main\\/java\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java\\n+++ \\/Users\\/paul\\/code\\/astor\\/examples\\/Math-issue-309\\/src\\/main\\/java\\/org\\/apache\\/commons\\/math\\/random\\/RandomDataImpl.java\\n@@ -472 +472 @@\\n-\\t\\tdouble unif \u003d generator.nextDouble();\\n+\\t\\tdouble unif \u003d generator.nextDouble(); \\t\\tif (mean \u003c\u003d 0) { \\t\\t\\tthrow org.apache.commons.math.MathRuntimeException.createIllegalArgumentException(\\\"the Poisson mean must be positive ({0})\\\", mean);}\\n\\n"
+}
