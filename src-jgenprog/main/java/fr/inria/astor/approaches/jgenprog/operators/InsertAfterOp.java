@@ -45,8 +45,13 @@ public class InsertAfterOp extends InsertStatementOp {
 		CtBlock<?> parentBlock = stmtoperator.getParentBlock();
 		int position = stmtoperator.getLocationInParent();
 		position += 1;
-		boolean sucessful = StatementSupporter.remove(parentBlock, fix, position);
-		parentBlock.setImplicit(stmtoperator.isParentBlockImplicit());
+		boolean sucessful = false;
+		if (parentBlock != null) {
+			sucessful = StatementSupporter.remove(parentBlock, fix, position);
+			parentBlock.setImplicit(stmtoperator.isParentBlockImplicit());
+		}
+
+
 		return sucessful;
 	}
 

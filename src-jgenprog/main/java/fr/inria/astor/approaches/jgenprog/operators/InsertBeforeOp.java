@@ -64,8 +64,12 @@ public class InsertBeforeOp extends InsertStatementOp {
 			CtBlock<?> parentBlock = stmtoperator.getParentBlock();
 
 			int position = stmtoperator.getLocationInParent();
-			boolean sucess = StatementSupporter.remove(parentBlock, fix, position);
-			parentBlock.setImplicit(stmtoperator.isParentBlockImplicit());
+			boolean sucess = false;
+			if (parentBlock != null) {
+				sucess = parentBlock == null? true : StatementSupporter.remove(parentBlock, fix, position);
+				parentBlock.setImplicit(stmtoperator.isParentBlockImplicit());
+			}
+
 			return sucess;
 
 		} else {

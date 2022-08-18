@@ -36,6 +36,7 @@ public class StatementSupporter {
 
 	public static boolean remove(CtBlock parentBlock, CtStatement fixStatement, int pos) {
 
+
 		CtStatement s = parentBlock.getStatement(pos);
 		// To be sure that the position has the element we
 		// want to remove

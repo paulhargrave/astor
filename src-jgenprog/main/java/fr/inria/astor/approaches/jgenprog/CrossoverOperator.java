@@ -6,6 +6,7 @@ import fr.inria.astor.core.solutionsearch.population.FitnessFunction;
 import java.util.List;
 
 public interface CrossoverOperator {
-    void applyCrossover(List<ProgramVariant> temporalInstances, int generation, FitnessFunction fitnessFunction
-    );
+    void applyCrossover(Pair programVariants, int generation, FitnessFunction fitnessFunction);
+
+    record Pair (ProgramVariant left, ProgramVariant right) {}
 }
