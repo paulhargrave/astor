@@ -3,6 +3,7 @@ package fr.inria.astor.core.solutionsearch;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ import spoon.reflect.factory.Factory;
  * @author Matias Martinez, matias.martinez@inria.fr
  * 
  */
-public abstract class AstorCoreEngine implements AstorExtensionPoint {
+public abstract class AstorCoreEngine implements AstorExtensionPoint, FitnessValidator {
 
 	/**
 	 * Initial identifier.
@@ -532,7 +533,7 @@ public abstract class AstorCoreEngine implements AstorExtensionPoint {
 	 * @return true if the variant is a solution. False otherwise.
 	 * @throws Exception
 	 */
-	public boolean processCreatedVariant(ProgramVariant programVariant, int generation) throws Exception {
+	public boolean processCreatedVariant(ProgramVariant programVariant, int generation) throws Exception  {
 
 		URL[] originalURL = projectFacade.getClassPathURLforProgramVariant(ProgramVariant.DEFAULT_ORIGINAL_VARIANT);
 

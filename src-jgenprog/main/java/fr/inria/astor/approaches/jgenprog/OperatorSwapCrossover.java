@@ -4,34 +4,27 @@ import fr.inria.astor.core.entities.OperatorInstance;
 import fr.inria.astor.core.entities.ProgramVariant;
 import fr.inria.astor.core.setup.RandomManager;
 import fr.inria.astor.core.solutionsearch.AstorCoreEngine;
+import fr.inria.astor.core.solutionsearch.FitnessValidator;
 import fr.inria.astor.core.solutionsearch.population.FitnessFunction;
 import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class OperatorSwapCrossover implements CrossoverOperator {
 
     private static Logger log = Logger.getLogger(AstorCoreEngine.class.getSimpleName());
 
     @Override
-    public void applyCrossover(Pair variants, int generation, FitnessFunction fitnessFunction) {
+    public void applyCrossover(ProgramVariant left, ProgramVariant right, int generation, FitnessFunction fitnessFunction, FitnessValidator fitnessValidator) {
 
 
-
-        // Same instance
-        if (variants.left() == variants.right()) {
-            log.debug("CO|randomless chosen the same variant to apply crossover");
+        if (CrossoverHelperMethods.sanityCheckFailed(left, right, log)) {
             return;
         }
 
-        if (variants.left().getOperations().isEmpty() || variants.right().getOperations().isEmpty()) {
-            log.debug("CO|Not Enough ops to apply Crossover");
-            return;
-        }
-        Map<Integer, List<OperatorInstance>> v1FilteredOperations = filterOutEmptyOperations(variants.left().getOperations());
-        Map<Integer, List<OperatorInstance>> v2FilteredOperations = filterOutEmptyOperations(variants.right().getOperations());
+        Map<Integer, List<OperatorInstance>> v1FilteredOperations = CrossoverHelperMethods.filterOutEmptyOperations(left.getOperations());
+        Map<Integer, List<OperatorInstance>> v2FilteredOperations = CrossoverHelperMethods.filterOutEmptyOperations(right.getOperations());
 
 
         // we randomly select the generations to apply
@@ -39,8 +32,8 @@ public class OperatorSwapCrossover implements CrossoverOperator {
         int rgen1index = RandomManager.nextInt(v1FilteredOperations.keySet().size());
         int rgen2index = RandomManager.nextInt(v2FilteredOperations.keySet().size());
 
-        List<OperatorInstance> ops1 = variants.left().getOperations((int) v1FilteredOperations.keySet().toArray()[rgen1index]);
-        List<OperatorInstance> ops2 = variants.right().getOperations((int) v2FilteredOperations.keySet().toArray()[rgen2index]);
+        List<OperatorInstance> ops1 = left.getOperations((int) v1FilteredOperations.keySet().toArray()[rgen1index]);
+        List<OperatorInstance> ops2 = right.getOperations((int) v2FilteredOperations.keySet().toArray()[rgen2index]);
 
 
         OperatorInstance opinst1 = ops1.remove((int) RandomManager.nextInt(ops1.size()));
@@ -53,18 +46,10 @@ public class OperatorSwapCrossover implements CrossoverOperator {
 
         // The generation of both new operators is the Last one.
         // In the first variant we put the operator taken from the 2 one.
-        variants.left().putModificationInstance(generation, opinst2);
+        left.putModificationInstance(generation, opinst2);
         // In the second variant we put the operator taken from the 1 one.
-        variants.right().putModificationInstance(generation, opinst1);
+        right.putModificationInstance(generation, opinst1);
         //
     }
 
-
-
-
-    private Map<Integer, List<OperatorInstance>> filterOutEmptyOperations(Map<Integer, List<OperatorInstance>> v1Operations) {
-        return v1Operations.entrySet().stream()
-                .filter(e -> e.getValue().size() > 0)
-                .collect(Collectors.toUnmodifiableMap(e -> e.getKey(), e -> e.getValue()));
-    }
 }

@@ -25,7 +25,8 @@ public class JGenProg extends IngredientBasedEvolutionaryRepairApproachImpl {
 
 	public JGenProg(MutationSupporter mutatorExecutor, ProjectRepairFacade projFacade) throws JSAPException {
 		super(mutatorExecutor, projFacade);
-		crossoverOperator = new OperatorSwapCrossover();
+		//crossoverOperator = new OperatorSwapCrossover();
+		crossoverOperator = new SelectiveCrossover();
 		setPropertyIfNotDefined(ExtensionPoints.OPERATORS_SPACE.identifier, "irr-statements");
 
 		setPropertyIfNotDefined(ExtensionPoints.TARGET_CODE_PROCESSOR.identifier, "statements");
@@ -50,7 +51,7 @@ public class JGenProg extends IngredientBasedEvolutionaryRepairApproachImpl {
 		// We randomly choose the two variants to crossover
 		ProgramVariant v1 = variants.get(RandomManager.nextInt(numberVariants));
 		ProgramVariant v2 = variants.get(RandomManager.nextInt(numberVariants));
-		crossoverOperator.applyCrossover(new CrossoverOperator.Pair(v1, v2), generation, fitnessFunction);
+		crossoverOperator.applyCrossover(v1, v2, generation, fitnessFunction, this);
 	}
 
 	@Override
