@@ -5,6 +5,9 @@ import fr.inria.astor.core.entities.validation.VariantValidationResult;
 
 import java.net.MalformedURLException;
 
+/**
+ * An interface to enable consumers to produce a VariantValidationResult for fitness calculations.
+ */
 public interface FitnessValidator {
 
     VariantValidationResult validateInstance(ProgramVariant variant);

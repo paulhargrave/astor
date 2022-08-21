@@ -11,7 +11,6 @@ import fr.inria.astor.core.solutionsearch.FitnessValidator;
 import fr.inria.astor.core.solutionsearch.population.FitnessFunction;
 import org.apache.log4j.Logger;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,7 +31,7 @@ class SelectiveCrossover implements CrossoverOperator {
         //only do a crossover if there are modification points in each variant
         if(minMaxLeft.isPresent() && minMaxRight.isPresent()) {
             List<OperatorInstance> ops1 = left.getOperations(minMaxLeft.get().minFitnessGeneration);
-            List<OperatorInstance> ops2 = right.getOperations(minMaxRight.get().minFitnessGeneration);
+            List<OperatorInstance> ops2 = right.getOperations(minMaxRight.get().maxFitnessGeneration);
 
             OperatorInstance opinst1 = ops1.remove((int) RandomManager.nextInt(ops1.size()));
             OperatorInstance opinst2 = ops2.remove((int) RandomManager.nextInt(ops2.size()));
@@ -44,9 +43,9 @@ class SelectiveCrossover implements CrossoverOperator {
 
             // The generation of both new operators is the Last one.
             // In the first variant we put the operator taken from the 2 one.
-            left.putModificationInstance(minMaxLeft.get().maxFitnessGeneration, opinst2);
+            left.putModificationInstance(minMaxRight.get().maxFitnessGeneration, opinst2);
             // In the second variant we put the operator taken from the 1 one.
-            right.putModificationInstance(minMaxRight.get().maxFitnessGeneration, opinst1);
+            right.putModificationInstance(minMaxLeft.get().minFitnessGeneration, opinst1);
         }
 
 
