@@ -148,11 +148,14 @@ public class ProgramVariant {
 			operations.put(generation, modificationPoints);
 		}
 		modificationPoints.add(op);
-
 	}
 
 	public Map<Integer, List<OperatorInstance>> getOperations() {
 		return operations;
+	}
+
+	public List<OperatorInstance> removeOperationForGeneration(int generation) {
+		return operations.remove(generation);
 	}
 
 	public List<OperatorInstance> getAllOperations() {
