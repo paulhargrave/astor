@@ -30,6 +30,7 @@ class SelectiveCrossover implements CrossoverOperator {
 
         //only do a crossover if there are modification points in each variant
         if(minMaxLeft.isPresent() && minMaxRight.isPresent()) {
+            log.info("Applying selective crossover");
             List<OperatorInstance> ops1 = left.getOperations(minMaxLeft.get().minFitnessGeneration);
             List<OperatorInstance> ops2 = right.getOperations(minMaxRight.get().maxFitnessGeneration);
 
@@ -43,9 +44,9 @@ class SelectiveCrossover implements CrossoverOperator {
 
             // The generation of both new operators is the Last one.
             // In the first variant we put the operator taken from the 2 one.
-            left.putModificationInstance(minMaxRight.get().maxFitnessGeneration, opinst2);
+            left.putModificationInstance(generationToApplyCrossover, opinst2);
             // In the second variant we put the operator taken from the 1 one.
-            right.putModificationInstance(minMaxLeft.get().minFitnessGeneration, opinst1);
+            right.putModificationInstance(generationToApplyCrossover, opinst1);
         }
 
 

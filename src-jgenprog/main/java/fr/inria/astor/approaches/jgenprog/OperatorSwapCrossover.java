@@ -19,7 +19,9 @@ public class OperatorSwapCrossover implements CrossoverOperator {
     public void applyCrossover(ProgramVariant left, ProgramVariant right, int generation, FitnessFunction fitnessFunction, FitnessValidator fitnessValidator) {
 
 
+        log.info("Applying OperatorSwapCrossover");
         if (CrossoverHelperMethods.sanityCheckFailed(left, right, log)) {
+            log.info("Sanity check failed");
             return;
         }
 

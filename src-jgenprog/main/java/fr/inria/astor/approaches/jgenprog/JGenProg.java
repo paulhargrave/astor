@@ -25,8 +25,8 @@ public class JGenProg extends IngredientBasedEvolutionaryRepairApproachImpl {
 
 	public JGenProg(MutationSupporter mutatorExecutor, ProjectRepairFacade projFacade) throws JSAPException {
 		super(mutatorExecutor, projFacade);
-		//crossoverOperator = new OperatorSwapCrossover();
-		crossoverOperator = new SelectiveCrossover();
+		crossoverOperator = new OperatorSwapCrossover();
+		//crossoverOperator = new SelectiveCrossover();
 		setPropertyIfNotDefined(ExtensionPoints.OPERATORS_SPACE.identifier, "irr-statements");
 
 		setPropertyIfNotDefined(ExtensionPoints.TARGET_CODE_PROCESSOR.identifier, "statements");
